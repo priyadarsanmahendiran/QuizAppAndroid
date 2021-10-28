@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -24,7 +23,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -118,5 +119,14 @@ public class ComputerScience extends AppCompatActivity {
             }
         }
         Toast.makeText(this, "SCORE: " + String.valueOf(score), Toast.LENGTH_LONG).show();
+        String uid = currentUser.getUid();
+        Date d = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        Map<String,Object> score_new = new HashMap<>();
+        score_new.put("date",ft.format(d));
+        score_new.put("score",score);
+        score_new.put("subject","computerscience");
+        score_new.put("userId",uid);
+        db.collection("scores").document().set(score_new);
     }
 }
