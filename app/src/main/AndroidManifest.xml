@@ -10,6 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizApp">
         <activity
+            android:name=".Chemistry"
+            android:exported="true" />
+        <activity
+            android:name=".Physics"
+            android:exported="true" />
+        <activity
+            android:name=".ComputerScience"
+            android:exported="true" />
+        <activity
+            android:name=".Mathematics"
+            android:exported="true" />
+        <activity
+            android:name=".Subjects"
+            android:exported="true" />
+        <activity
             android:name=".CheckScore"
             android:exported="true" />
         <activity

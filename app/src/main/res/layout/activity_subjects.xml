@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Subjects">
+
+    <Button
+        android:id="@+id/mathematics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onMath"
+        android:text="Mathematics" />
+
+    <Button
+        android:id="@+id/computerscience"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onCS"
+        android:text="Computer Science" />
+
+    <Button
+        android:id="@+id/physics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onPhysics"
+        android:text="Physics" />
+
+    <Button
+        android:id="@+id/chemistry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onChem"
+        android:text="Chemistry" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+</LinearLayout>

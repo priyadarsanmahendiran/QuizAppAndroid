@@ -30,7 +30,7 @@ public class MenuScreen extends AppCompatActivity {
     }
 
     public void onNewGame(View v){
-        Intent i = new Intent(this, NewGame.class);
+        Intent i = new Intent(this, Subjects.class);
         startActivity(i);
     }
 

@@ -10,7 +10,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import android.view.View;
+
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,8 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.List;
