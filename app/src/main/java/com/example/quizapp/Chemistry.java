@@ -56,6 +56,10 @@ public class Chemistry extends AppCompatActivity {
             public void onMCQ(List<Integer>h, List<String>a){
                 radioGroupId = h; mcq_answers = a;
             }
+            @Override
+            public void noTest(boolean f){
+
+            }
         });
     }
 

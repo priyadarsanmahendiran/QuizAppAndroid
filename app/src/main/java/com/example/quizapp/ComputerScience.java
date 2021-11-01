@@ -58,6 +58,10 @@ public class ComputerScience extends AppCompatActivity {
                 radioGroupId = radioGrp;
                 mcq_answers = mcqAns;
             }
+            @Override
+            public void noTest(boolean f){
+
+            }
         });
     }
 

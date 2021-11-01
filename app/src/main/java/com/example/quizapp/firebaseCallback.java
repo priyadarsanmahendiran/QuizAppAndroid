@@ -7,4 +7,5 @@ import java.util.Map;
 public interface firebaseCallback {
     void onCallback(List<String> l);
     void onMCQ(List<Integer> h, List<String>a);
+    void noTest(boolean flag);
 }

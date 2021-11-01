@@ -28,6 +28,7 @@ public class CheckScore extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class CheckScore extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     DocumentSnapshot document = task.getResult();
                                     if(document.get("userId").toString().equals(currentUser.getUid())){
+                                        flag=true;
                                         final TextView rowTextViewDate = new TextView(CheckScore.this);
                                         rowTextViewDate.setTextSize(20);
                                         rowTextViewDate.setTextColor(Color.BLACK);
@@ -86,12 +88,6 @@ public class CheckScore extends AppCompatActivity {
                             }
                         });
                     }
-                } else {
-                    final TextView rowTextNoAttempt = new TextView(CheckScore.this);
-                    rowTextNoAttempt.setTextSize(16);
-                    rowTextNoAttempt.setTextColor(Color.BLACK);
-                    rowTextNoAttempt.setText("You haven't given any tests yet!");
-                    checkLayout.addView(rowTextNoAttempt);
                 }
             }
         });
