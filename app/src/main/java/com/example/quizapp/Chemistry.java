@@ -3,10 +3,13 @@ package com.example.quizapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,23 +38,28 @@ public class Chemistry extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseFirestore db;
     List<String > answers = new ArrayList<>();
+    List<String> mcq_answers = new ArrayList<>();
     List<Integer> answer_id = new ArrayList<>();
-
+    List<Integer> radioGroupId = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         setContentView(R.layout.activity_chemistry);
-        getQuestions(new MyCallback() {
+        getQuestions(new firebaseCallback() {
             @Override
             public void onCallback(List<String>l) {
                 answers= l;
             }
+            @Override
+            public void onMCQ(List<Integer>h, List<String>a){
+                radioGroupId = h; mcq_answers = a;
+            }
         });
     }
 
-    public void getQuestions(MyCallback myCallback){
+    public void getQuestions(firebaseCallback myCallback){
         currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
             reload();
@@ -59,6 +67,8 @@ public class Chemistry extends AppCompatActivity {
         LinearLayout compLayout = findViewById(R.id.chemlayout);
         CollectionReference chemistry = db.collection("chemistry");
         List<String> answers = new ArrayList<>();
+        List<String> mcq_answers = new ArrayList<>();
+        List<Integer>rgId = new ArrayList<>();
         chemistry.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -72,7 +82,9 @@ public class Chemistry extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     String mcq = document.get("mcq").toString();
                                     final TextView rowTextViewQuestion = new TextView(Chemistry.this);
-                                    rowTextViewQuestion.setText("Question: " + document.get("question").toString());
+                                    rowTextViewQuestion.setText(document.get("question").toString());
+                                    rowTextViewQuestion.setTextSize(16);
+                                    rowTextViewQuestion.setTextColor(Color.BLACK);
                                     compLayout.addView(rowTextViewQuestion);
                                     answers.add(document.get("answer").toString());
                                     if (mcq.equals("false")) {
@@ -83,6 +95,60 @@ public class Chemistry extends AppCompatActivity {
                                         compLayout.addView(rowAnswer);
                                     }
                                     myCallback.onCallback(answers);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        chemistry.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        DocumentReference doc = chemistry.document(document.getId());
+                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    String mcq = document.get("mcq").toString();
+                                    if (mcq.equals("true")) {
+                                        final TextView rowTextViewQuestion = new TextView(Chemistry.this);
+                                        rowTextViewQuestion.setText(document.get("question").toString());
+                                        rowTextViewQuestion.setTextSize(16);
+                                        rowTextViewQuestion.setTextColor(Color.BLACK);
+                                        compLayout.addView(rowTextViewQuestion);
+                                        mcq_answers.add(document.get("answer").toString());
+                                        final RadioGroup answerGrp = new RadioGroup(Chemistry.this);
+                                        int rg_id = View.generateViewId();
+                                        answerGrp.setId(rg_id);
+                                        final RadioButton opt1 = new RadioButton(Chemistry.this);
+                                        final RadioButton opt2 = new RadioButton(Chemistry.this);
+                                        final RadioButton opt3 = new RadioButton(Chemistry.this);
+                                        final RadioButton opt4 = new RadioButton(Chemistry.this);
+                                        int op1id = View.generateViewId();
+                                        int op2id = View.generateViewId();
+                                        int op3id = View.generateViewId();
+                                        int op4id = View.generateViewId();
+                                        opt1.setId(op1id);
+                                        opt2.setId(op2id);
+                                        opt3.setId(op3id);
+                                        opt4.setId(op4id);
+                                        opt1.setText(document.get("option1").toString());
+                                        opt2.setText(document.get("option2").toString());
+                                        opt3.setText(document.get("option3").toString());
+                                        opt4.setText(document.get("option4").toString());
+                                        answerGrp.addView(opt1);
+                                        answerGrp.addView(opt2);
+                                        answerGrp.addView(opt3);
+                                        answerGrp.addView(opt4);
+                                        rgId.add(rg_id);
+                                        compLayout.addView(answerGrp);
+                                    }
+                                    myCallback.onCallback(answers);
+                                    myCallback.onMCQ(rgId,mcq_answers);
                                 }
                             }
                         });
@@ -107,6 +173,22 @@ public class Chemistry extends AppCompatActivity {
             String correctAns = answers.get(i);
             correctAns = correctAns.replaceAll("\\s","");
             correctAns = correctAns.toLowerCase(Locale.ROOT);
+            if(noSpaceAns.equals(correctAns)){
+                score++;
+            }
+        }
+        for(int i=0;i<radioGroupId.size();i++){
+            RadioGroup rg = (RadioGroup) findViewById(radioGroupId.get(i));
+            int selectedId = rg.getCheckedRadioButtonId();
+            RadioButton selectedAns = (RadioButton)findViewById(selectedId);
+            String ans_val = selectedAns.getText().toString();
+            String noSpaceAns = ans_val.replaceAll("\\s", "");
+            noSpaceAns= noSpaceAns.toLowerCase(Locale.ROOT);
+            String correctAns = mcq_answers.get(i);
+            correctAns = correctAns.replaceAll("\\s","");
+            correctAns = correctAns.toLowerCase(Locale.ROOT);
+            System.out.println(noSpaceAns);
+            System.out.println(correctAns);
             if(noSpaceAns.equals(correctAns)){
                 score++;
             }

@@ -3,6 +3,7 @@ package com.example.quizapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -66,13 +67,19 @@ public class CheckScore extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if(document.get("userId").toString().equals(currentUser.getUid())){
                                         final TextView rowTextViewDate = new TextView(CheckScore.this);
-                                        rowTextViewDate.setText("Date: " + document.get("date").toString()+"\n");
+                                        rowTextViewDate.setTextSize(20);
+                                        rowTextViewDate.setTextColor(Color.BLACK);
+                                        rowTextViewDate.setText("Date: " + document.get("date").toString());
                                         checkLayout.addView(rowTextViewDate);
                                         final TextView rowTextViewSub = new TextView(CheckScore.this);
-                                        rowTextViewSub.setText("Subject: " + document.get("subject").toString()+"\n");
+                                        rowTextViewSub.setTextSize(16);
+                                        rowTextViewSub.setTextColor(Color.BLACK);
+                                        rowTextViewSub.setText("Subject: " + document.get("subject").toString());
                                         checkLayout.addView(rowTextViewSub);
                                         final TextView rowTextViewScore = new TextView(CheckScore.this);
-                                        rowTextViewScore.setText("Score: " + document.get("score").toString()+"\n");
+                                        rowTextViewScore.setTextSize(16);
+                                        rowTextViewScore.setTextColor(Color.BLACK);
+                                        rowTextViewScore.setText("Score: " + document.get("score").toString());
                                         checkLayout.addView(rowTextViewScore);
                                     }
                                 }
@@ -80,7 +87,11 @@ public class CheckScore extends AppCompatActivity {
                         });
                     }
                 } else {
-
+                    final TextView rowTextNoAttempt = new TextView(CheckScore.this);
+                    rowTextNoAttempt.setTextSize(16);
+                    rowTextNoAttempt.setTextColor(Color.BLACK);
+                    rowTextNoAttempt.setText("You haven't given any tests yet!");
+                    checkLayout.addView(rowTextNoAttempt);
                 }
             }
         });

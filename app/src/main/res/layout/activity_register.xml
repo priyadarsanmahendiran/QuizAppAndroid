@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="30dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Register">
+
+  <TextView
+      android:id="@+id/textView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:fontFamily="sans-serif-smallcaps"
+      android:gravity="center"
+      android:text="Quizzer - Register"
+      android:textColor="#000000"
+      android:textSize="34sp" />
+
+  <TextView
+      android:id="@+id/Email"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Email"
+      android:textColor="#000000"
+      android:textSize="20sp" />
+
+  <EditText
+      android:id="@+id/regEmail"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:inputType="textPersonName"
+      android:minHeight="48dp"
+      tools:ignore="SpeakableTextPresentCheck" />
+
+  <TextView
+      android:id="@+id/password"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Password"
+      android:textColor="#000000"
+      android:textSize="20sp" />
+
+  <EditText
+      android:id="@+id/regPassword"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ems="10"
+      android:inputType="textPassword"
+      android:minHeight="48dp"
+      tools:ignore="SpeakableTextPresentCheck" />
+
+  <Button
+      android:id="@+id/register"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="120dp"
+      android:layout_marginTop="15dp"
+      android:layout_marginRight="120dp"
+      android:onClick="register"
+      android:text="Register" />
+
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="Already Registered?"
+      android:textColor="#000000"
+      android:textSize="16sp"
+      android:textStyle="bold" />
+
+  <Button
+      android:id="@+id/button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:onClick="login"
+      android:text="Login" />
+</LinearLayout>

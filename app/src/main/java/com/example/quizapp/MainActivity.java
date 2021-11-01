@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View v){
-        EditText emailUser = (EditText)findViewById(R.id.userEmail);
-        EditText passwordUser = (EditText)findViewById((R.id.userPassword));
+        EditText emailUser = (EditText)findViewById(R.id.regEmail);
+        EditText passwordUser = (EditText)findViewById((R.id.regPassword));
         String email = emailUser.getText().toString();
         String password = passwordUser.getText().toString();
         mAuth.signInWithEmailAndPassword(email, password)
@@ -49,5 +49,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void onRegister(View v){
+        Intent i = new Intent(this, Register.class);
+        startActivity(i);
     }
 }

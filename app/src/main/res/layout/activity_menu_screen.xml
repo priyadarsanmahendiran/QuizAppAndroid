@@ -7,17 +7,31 @@
     android:orientation="vertical"
     tools:context=".MenuScreen">
 
-    <Button
-        android:id="@+id/playGame"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onNewGame"
-        android:text="Play Game" />
+        android:layout_height="match_parent"
+        android:layout_margin="35dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/checkScore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onCheckScore"
-        android:text="Check Score" />
+        <Button
+            android:id="@+id/playGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="onNewGame"
+            android:text="Play Game" />
+
+        <Button
+            android:id="@+id/checkScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:onClick="onCheckScore"
+            android:text="Check Score" />
+    </LinearLayout>
+
 </LinearLayout>
