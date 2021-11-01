@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -51,6 +52,16 @@ public class Physics extends AppCompatActivity {
             @Override
             public void onCallback(List<String>l) {
                 answers= l;
+                Button submit = new Button(Physics.this);
+                submit.setText("Submit");
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getScore(view);
+                    }
+                });
+                LinearLayout compLayout = findViewById(R.id.phylayout);
+                compLayout.addView(submit);
             }
             @Override
             public void onMCQ(List<Integer>h, List<String>a){
@@ -73,7 +84,7 @@ public class Physics extends AppCompatActivity {
         List<String> answers = new ArrayList<>();
         List<String> mcq_answers = new ArrayList<>();
         List<Integer>rgId = new ArrayList<>();
-        physics.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        physics.limit(10).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -85,13 +96,13 @@ public class Physics extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
                                     String mcq = document.get("mcq").toString();
-                                    final TextView rowTextViewQuestion = new TextView(Physics.this);
-                                    rowTextViewQuestion.setText(document.get("question").toString());
-                                    rowTextViewQuestion.setTextSize(16);
-                                    rowTextViewQuestion.setTextColor(Color.BLACK);
-                                    compLayout.addView(rowTextViewQuestion);
-                                    answers.add(document.get("answer").toString());
                                     if (mcq.equals("false")) {
+                                        final TextView rowTextViewQuestion = new TextView(Physics.this);
+                                        rowTextViewQuestion.setText(document.get("question").toString());
+                                        rowTextViewQuestion.setTextSize(16);
+                                        rowTextViewQuestion.setTextColor(Color.BLACK);
+                                        compLayout.addView(rowTextViewQuestion);
+                                        answers.add(document.get("answer").toString());
                                         final EditText rowAnswer = new EditText(Physics.this);
                                         int id = View.generateViewId();
                                         rowAnswer.setId(id);
@@ -106,7 +117,7 @@ public class Physics extends AppCompatActivity {
                 }
             }
         });
-        physics.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        physics.limit(10).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

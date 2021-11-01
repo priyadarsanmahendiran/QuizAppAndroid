@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -51,7 +52,17 @@ public class ComputerScience extends AppCompatActivity {
         getQuestions(new firebaseCallback() {
             @Override
             public void onCallback(List<String>l) {
-               answers= l;
+                answers= l;
+                Button submit = new Button(ComputerScience.this);
+                submit.setText("Submit");
+                submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getScore(view);
+                    }
+                });
+                LinearLayout compLayout = (LinearLayout) findViewById(R.id.csques);
+                compLayout.addView(submit);
             }
             @Override
             public void onMCQ(List<Integer>radioGrp, List<String>mcqAns){
@@ -75,7 +86,7 @@ public class ComputerScience extends AppCompatActivity {
         List<String> answers = new ArrayList<>();
         List<String> mcq_answers = new ArrayList<>();
         List<Integer>rgId = new ArrayList<>();
-        computerScience.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        computerScience.limit(10).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -108,7 +119,7 @@ public class ComputerScience extends AppCompatActivity {
                 }
             }
         });
-        computerScience.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        computerScience.limit(10).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
