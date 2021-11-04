@@ -2,6 +2,7 @@ package com.example.quizapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -68,21 +69,29 @@ public class CheckScore extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if(document.get("userId").toString().equals(currentUser.getUid())){
                                         flag=true;
+                                        CardView card = new CardView(CheckScore.this);
+                                        card.setPadding(10,10,10,10);
+                                        card.setMaxCardElevation(10);
+                                        card.setRadius(10);
+                                        LinearLayout scores = new LinearLayout(CheckScore.this);
+                                        scores.setOrientation(LinearLayout.VERTICAL);
                                         final TextView rowTextViewDate = new TextView(CheckScore.this);
                                         rowTextViewDate.setTextSize(20);
                                         rowTextViewDate.setTextColor(Color.BLACK);
                                         rowTextViewDate.setText("Date: " + document.get("date").toString());
-                                        checkLayout.addView(rowTextViewDate);
+                                        scores.addView(rowTextViewDate);
                                         final TextView rowTextViewSub = new TextView(CheckScore.this);
                                         rowTextViewSub.setTextSize(16);
                                         rowTextViewSub.setTextColor(Color.BLACK);
                                         rowTextViewSub.setText("Subject: " + document.get("subject").toString());
-                                        checkLayout.addView(rowTextViewSub);
+                                        scores.addView(rowTextViewSub);
                                         final TextView rowTextViewScore = new TextView(CheckScore.this);
                                         rowTextViewScore.setTextSize(16);
                                         rowTextViewScore.setTextColor(Color.BLACK);
-                                        rowTextViewScore.setText("Score: " + document.get("score").toString());
-                                        checkLayout.addView(rowTextViewScore);
+                                        rowTextViewScore.setText("Score: " + document.get("score").toString()+"\n");
+                                        scores.addView(rowTextViewScore);
+                                        card.addView(scores);
+                                        checkLayout.addView(card);
                                     }
                                 }
                             }

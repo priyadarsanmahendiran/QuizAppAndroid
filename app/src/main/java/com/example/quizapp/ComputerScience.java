@@ -63,9 +63,7 @@ public class ComputerScience extends AppCompatActivity {
                 mcq_answers = mcqAns;
             }
             @Override
-            public void noTest(boolean f){
-
-            }
+            public void noTest(boolean f){ }
             @Override
             public void addButton(){
                 Button submit = new Button(ComputerScience.this);
