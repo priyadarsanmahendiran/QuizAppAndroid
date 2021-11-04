@@ -34,8 +34,8 @@ public class Subjects extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void onSub(View v){
-        Intent i = new Intent(this, Mathematics.class);
+    public void onBio(View v){
+        Intent i = new Intent(this, Biology.class);
         startActivity(i);
     }
 }

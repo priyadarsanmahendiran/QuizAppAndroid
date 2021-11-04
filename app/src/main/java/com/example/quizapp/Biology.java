@@ -36,8 +36,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class Physics extends AppCompatActivity {
-
+public class Biology extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db;
@@ -50,7 +49,7 @@ public class Physics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        setContentView(R.layout.activity_physics);
+        setContentView(R.layout.activity_biology);
         getQuestions(new firebaseCallback() {
             @Override
             public void onCallback(List<String>l) {
@@ -66,7 +65,7 @@ public class Physics extends AppCompatActivity {
             }
             @Override
             public void addButton(){
-                Button submit = new Button(Physics.this);
+                Button submit = new Button(Biology.this);
                 submit.setText("Submit");
                 submit.setBackgroundColor(Color.BLUE);
                 submit.setTextColor(Color.WHITE);
@@ -76,63 +75,60 @@ public class Physics extends AppCompatActivity {
                         getScore(view);
                     }
                 });
-                LinearLayout compLayout = findViewById(R.id.phylayout);
+                LinearLayout compLayout = findViewById(R.id.biolayout);
                 compLayout.addView(submit);
             }
         });
     }
-
     public void getQuestions(final firebaseCallback myCallback){
         currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
             reload();
         }
-        LinearLayout compLayout = findViewById(R.id.phylayout);
-        CollectionReference physics = db.collection("physics");
+        LinearLayout compLayout = findViewById(R.id.biolayout);
+        CollectionReference biology = db.collection("Biology");
         List<String> answers = new ArrayList<>();
         List<String> mcq_answers = new ArrayList<>();
         List<Integer>rgId = new ArrayList<>();
-        physics.limit(10).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        DocumentReference doc = physics.document(document.getId());
-                        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    String mcq = document.get("mcq").toString();
-                                    if (mcq.equals("false")) {
-                                        final TextView rowTextViewQuestion = new TextView(Physics.this);
-                                        rowTextViewQuestion.setText(document.get("question").toString());
-                                        rowTextViewQuestion.setTextSize(16);
-                                        rowTextViewQuestion.setTextColor(Color.BLACK);
-                                        rowTextViewQuestion.setTypeface(null, Typeface.BOLD);
-                                        compLayout.addView(rowTextViewQuestion);
-                                        answers.add(document.get("answer").toString());
-                                        final EditText rowAnswer = new EditText(Physics.this);
-                                        int id = View.generateViewId();
-                                        rowAnswer.setId(id);
-                                        answer_id.add(id);
-                                        compLayout.addView(rowAnswer);
-                                    }
-                                    myCallback.onCallback(answers);
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-        });
-        physics.limit(10).get()
+        biology.limit(10).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            DocumentReference doc = physics.document(document.getId());
+                            DocumentReference doc = biology.document(document.getId());
+                            doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        String mcq = document.get("mcq").toString();
+                                        if (mcq.equals("false")) {
+                                            final TextView rowTextViewQuestion = new TextView(Biology.this);
+                                            rowTextViewQuestion.setText(document.get("question").toString());
+                                            rowTextViewQuestion.setTextSize(16);
+                                            rowTextViewQuestion.setTextColor(Color.BLACK);
+                                            rowTextViewQuestion.setTypeface(null, Typeface.BOLD);
+                                            compLayout.addView(rowTextViewQuestion);
+                                            answers.add(document.get("answer").toString());
+                                            final EditText rowAnswer = new EditText(Biology.this);
+                                            int id = View.generateViewId();
+                                            rowAnswer.setId(id);
+                                            answer_id.add(id);
+                                            compLayout.addView(rowAnswer);
+                                        }
+                                        myCallback.onCallback(answers);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+        biology.limit(10).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            DocumentReference doc = biology.document(document.getId());
                             doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -140,20 +136,20 @@ public class Physics extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         String mcq = document.get("mcq").toString();
                                         if (mcq.equals("true")) {
-                                            final TextView rowTextViewQuestion = new TextView(Physics.this);
+                                            final TextView rowTextViewQuestion = new TextView(Biology.this);
                                             rowTextViewQuestion.setText(document.get("question").toString());
                                             rowTextViewQuestion.setTextSize(16);
                                             rowTextViewQuestion.setTextColor(Color.BLACK);
                                             rowTextViewQuestion.setTypeface(null, Typeface.BOLD);
                                             compLayout.addView(rowTextViewQuestion);
                                             mcq_answers.add(document.get("answer").toString());
-                                            final RadioGroup answerGrp = new RadioGroup(Physics.this);
+                                            final RadioGroup answerGrp = new RadioGroup(Biology.this);
                                             int rg_id = View.generateViewId();
                                             answerGrp.setId(rg_id);
-                                            final RadioButton opt1 = new RadioButton(Physics.this);
-                                            final RadioButton opt2 = new RadioButton(Physics.this);
-                                            final RadioButton opt3 = new RadioButton(Physics.this);
-                                            final RadioButton opt4 = new RadioButton(Physics.this);
+                                            final RadioButton opt1 = new RadioButton(Biology.this);
+                                            final RadioButton opt2 = new RadioButton(Biology.this);
+                                            final RadioButton opt3 = new RadioButton(Biology.this);
+                                            final RadioButton opt4 = new RadioButton(Biology.this);
                                             int op1id = View.generateViewId();
                                             int op2id = View.generateViewId();
                                             int op3id = View.generateViewId();
@@ -183,14 +179,6 @@ public class Physics extends AppCompatActivity {
                         }
                     }
                 });
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//
-//                }
-//            }
-//        });
     }
 
     public void reload(){
@@ -199,7 +187,7 @@ public class Physics extends AppCompatActivity {
 
     public void getScore(View v){
         int score=0;
-        int attempted = 0;
+        int attempted=0;
         for(int i=0;i< answer_id.size();i++){
             int id = answer_id.get(i);
             EditText ans = (EditText) findViewById(id);
@@ -241,7 +229,7 @@ public class Physics extends AppCompatActivity {
         Map<String,Object> score_new = new HashMap<>();
         score_new.put("date",ft.format(d));
         score_new.put("score",score);
-        score_new.put("subject","physics");
+        score_new.put("subject","biology");
         score_new.put("userId",uid);
         db.collection("scores").document().set(score_new);
         Intent i = new Intent(this, ScoreDisplay.class);

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_biology.xml" value="0.19655797101449277" />
         <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_check_score.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_chemistry.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_computer_science.xml" value="0.264" />
@@ -12,6 +13,7 @@
         <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_new_game.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_physics.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_register.xml" value="0.21603260869565216" />
+        <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_score_display.xml" value="0.11354166666666667" />
         <entry key="..\:/Users/darsa/AndroidStudioProjects/QuizApp/app/src/main/res/layout/activity_subjects.xml" value="0.1" />
       </map>
     </option>
