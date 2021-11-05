@@ -49,18 +49,6 @@ public class CheckScore extends AppCompatActivity {
             }
 
             @Override
-            public void noTest(boolean flag) {
-                if(flag==false){
-                    final TextView rowNoText = new TextView(CheckScore.this);
-                    rowNoText.setText("No test given until now!");
-                    rowNoText.setTextSize(16);
-                    rowNoText.setTextColor(Color.BLACK);
-                    LinearLayout checkLayout = (LinearLayout) findViewById(R.id.checkLayout);
-                    checkLayout.addView(rowNoText);
-                }
-            }
-
-            @Override
             public void addButton() {
 
             }
@@ -80,6 +68,7 @@ public class CheckScore extends AppCompatActivity {
         String uid = currentUser.getUid();
         CollectionReference scores = db.collection("scores");
         List<String> list = new ArrayList<>();
+        int prev_test_count=0;
         scores.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -120,11 +109,6 @@ public class CheckScore extends AppCompatActivity {
                                         card.addView(scores);
                                         checkLayout.addView(card);
                                     }
-                                    if(flag==false){
-                                        myCallback.noTest(flag);
-                                        flag=true;
-                                    }
-
                                 }
                             }
                         });

@@ -63,8 +63,6 @@ public class ComputerScience extends AppCompatActivity {
                 mcq_answers = mcqAns;
             }
             @Override
-            public void noTest(boolean f){ }
-            @Override
             public void addButton(){
                 Button submit = new Button(ComputerScience.this);
                 submit.setText("Submit");
@@ -236,7 +234,7 @@ public class ComputerScience extends AppCompatActivity {
         Intent i = new Intent(this, ScoreDisplay.class);
         i.putExtra("attempted",attempted);
         i.putExtra("correct",score);
-        i.putExtra("wrong", 10-score);
+        i.putExtra("wrong", attempted-score);
         startActivity(i);
     }
 }

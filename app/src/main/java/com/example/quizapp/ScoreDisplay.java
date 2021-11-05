@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ScoreDisplay extends AppCompatActivity {
@@ -25,6 +26,8 @@ public class ScoreDisplay extends AppCompatActivity {
         TextView wAns = (TextView) findViewById(R.id.wAnswer);
         String wAnsText = wAns.getText().toString();
         wAns.setText(wAnsText + String.valueOf(wrong));
+    }
+    public void goBack(View v){
         Intent i = new Intent(this, Subjects.class);
         startActivity(i);
     }

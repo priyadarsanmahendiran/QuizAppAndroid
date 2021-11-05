@@ -61,10 +61,6 @@ public class Mathematics extends AppCompatActivity {
                 radioGroupId = h; mcq_answers=a;
             }
             @Override
-            public void noTest(boolean f){
-
-            }
-            @Override
             public void addButton(){
                 Button submit = new Button(Mathematics.this);
                 submit.setText("Submit");
@@ -238,7 +234,7 @@ public class Mathematics extends AppCompatActivity {
         Intent i = new Intent(this, ScoreDisplay.class);
         i.putExtra("attempted",attempted);
         i.putExtra("correct",score);
-        i.putExtra("wrong", 10-score);
+        i.putExtra("wrong", attempted-score);
         startActivity(i);
     }
 }
