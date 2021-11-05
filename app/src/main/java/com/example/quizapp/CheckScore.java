@@ -37,14 +37,41 @@ public class CheckScore extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         setContentView(R.layout.activity_check_score);
-        getContent();
+        getContent(new firebaseCallback() {
+            @Override
+            public void onCallback(List<String> l) {
+
+            }
+
+            @Override
+            public void onMCQ(List<Integer> h, List<String> a) {
+
+            }
+
+            @Override
+            public void noTest(boolean flag) {
+                if(flag==false){
+                    final TextView rowNoText = new TextView(CheckScore.this);
+                    rowNoText.setText("No test given until now!");
+                    rowNoText.setTextSize(16);
+                    rowNoText.setTextColor(Color.BLACK);
+                    LinearLayout checkLayout = (LinearLayout) findViewById(R.id.checkLayout);
+                    checkLayout.addView(rowNoText);
+                }
+            }
+
+            @Override
+            public void addButton() {
+
+            }
+        });
     }
 
     public void reload(){
 
     }
 
-    public void getContent() {
+    public void getContent(firebaseCallback myCallback) {
         currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
             reload();
@@ -93,6 +120,11 @@ public class CheckScore extends AppCompatActivity {
                                         card.addView(scores);
                                         checkLayout.addView(card);
                                     }
+                                    if(flag==false){
+                                        myCallback.noTest(flag);
+                                        flag=true;
+                                    }
+
                                 }
                             }
                         });
