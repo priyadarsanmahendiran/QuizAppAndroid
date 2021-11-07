@@ -37,29 +37,14 @@ public class CheckScore extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         setContentView(R.layout.activity_check_score);
-        getContent(new firebaseCallback() {
-            @Override
-            public void onCallback(List<String> l) {
-
-            }
-
-            @Override
-            public void onMCQ(List<Integer> h, List<String> a) {
-
-            }
-
-            @Override
-            public void addButton() {
-
-            }
-        });
+        getContent();
     }
 
     public void reload(){
 
     }
 
-    public void getContent(firebaseCallback myCallback) {
+    public void getContent() {
         currentUser = mAuth.getCurrentUser();
         if(currentUser == null){
             reload();

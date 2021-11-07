@@ -58,8 +58,7 @@ public class ComputerScience extends AppCompatActivity {
                 answers= l;
             }
             @Override
-            public void onMCQ(List<Integer>radioGrp, List<String>mcqAns){
-                radioGroupId = radioGrp;
+            public void onMCQ( List<String>mcqAns){
                 mcq_answers = mcqAns;
             }
             @Override
@@ -89,7 +88,6 @@ public class ComputerScience extends AppCompatActivity {
         CollectionReference computerScience = db.collection("computerscience");
         List<String> answers = new ArrayList<>();
         List<String> mcq_answers = new ArrayList<>();
-        List<Integer>rgId = new ArrayList<>();
         computerScience.limit(10).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -166,10 +164,10 @@ public class ComputerScience extends AppCompatActivity {
                                     answerGrp.addView(opt2);
                                     answerGrp.addView(opt3);
                                     answerGrp.addView(opt4);
-                                    rgId.add(rg_id);
+                                    radioGroupId.add(rg_id);
                                     compLayout.addView(answerGrp);
                                 }
-                                myCallback.onMCQ(rgId,mcq_answers);
+                                myCallback.onMCQ(mcq_answers);
                                 if(mcq_answers.size()+answers.size()==queryDocumentSnapshots.size())
                                     myCallback.addButton();
                             }
@@ -214,8 +212,6 @@ public class ComputerScience extends AppCompatActivity {
                 String correctAns = mcq_answers.get(i);
                 correctAns = correctAns.replaceAll("\\s", "");
                 correctAns = correctAns.toLowerCase(Locale.ROOT);
-                System.out.println(noSpaceAns);
-                System.out.println(correctAns);
                 if (noSpaceAns.equals(correctAns)) {
                     score++;
                 }

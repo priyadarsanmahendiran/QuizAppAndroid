@@ -57,8 +57,8 @@ public class Physics extends AppCompatActivity {
                 answers= l;
             }
             @Override
-            public void onMCQ(List<Integer>h, List<String>a){
-                radioGroupId = h; mcq_answers=a;
+            public void onMCQ(List<String>a){
+                mcq_answers=a;
             }
             @Override
             public void addButton(){
@@ -166,10 +166,10 @@ public class Physics extends AppCompatActivity {
                                             answerGrp.addView(opt2);
                                             answerGrp.addView(opt3);
                                             answerGrp.addView(opt4);
-                                            rgId.add(rg_id);
+                                            radioGroupId.add(rg_id);
                                             compLayout.addView(answerGrp);
                                         }
-                                        myCallback.onMCQ(rgId,mcq_answers);
+                                        myCallback.onMCQ(mcq_answers);
                                         if(mcq_answers.size()+answers.size()==queryDocumentSnapshots.size())
                                             myCallback.addButton();
                                     }
